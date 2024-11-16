@@ -8,8 +8,7 @@ figure.onclick = function () {
     console.log(count)
   } else if (count === 1) {
     figure.classList.add("triangle")
-    figure.classList.remove("rounded")
-    figure.classList.remove("square")
+    figure.classList.remove("rounded", "square")
     count++
     console.log(count)
   } else {
