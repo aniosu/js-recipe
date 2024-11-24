@@ -1,39 +1,45 @@
-const inputElement = document.getElementById("input-todo")
-const container = document.getElementById("cards-container")
+const input = document.getElementById("input")
+const container = document.getElementById("container")
 const addButton = document.getElementById("add-button")
+const removeAllButton = document.getElementById("remove-all-button")
 
-// 追加ボタンを押したときの処理を登録
-addButton.onclick = function () {
-  // カードを作成する
-  const card = createCard(inputElement.value)
-  container.append(card)
+let list = []
 
-  // 入力欄を空にする
-  inputElement.value = ""
+// 省略
+
+removeAllButton.onclick = function () {
+  // 状態の更新
+  list = []
+  localStorage.list = JSON.stringify(list)
+
+  // 状態の表示
+  container.textContent = ""
+}
+if (localStorage.list) {
+  // 状態の更新 list: [] -> ["こんにちは"]
+  list = JSON.parse(localStorage.list)
+
+  // 状態の変化を画面に表示する
+  for (const text of list) {
+    const card = document.createElement("div")
+    card.className = "card"
+    card.textContent = text
+    container.append(card)
+  }
 }
 
-// 共通の処理：テキストからカードを作成する
-const createCard = function (text) {
-  // カードの枠を作る
+addButton.onclick = function () {
+  const text = input.value
+
+  // 状態の更新 list: ["こんにちは"] -> ["こんにちは", "こんばんは"]
+  list.push(text)
+  localStorage.list = JSON.stringify(list)
+
+  // 状態の変化を画面に表示する
   const card = document.createElement("div")
   card.className = "card"
+  card.textContent = text
+  container.append(card)
 
-  // テキストを表示する部分を作る
-  const todo = document.createElement("div")
-  todo.className = "todo"
-  todo.textContent = text
-  card.append(todo)
-
-  // 削除ボタンを作る
-  const deleteButton = document.createElement("div")
-  deleteButton.className = "delete"
-
-  // 削除ボタンを押したときの処理を登録
-  deleteButton.onclick = function () {
-    // カードを削除する
-    card.remove()
-  }
-  card.append(deleteButton)
-
-  return card
+  input.value = ""
 }
