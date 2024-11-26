@@ -12,7 +12,7 @@ addButton.onclick = function () {
   cardsContainer.append(card)
   inputToDo.value = ""
 }
-if (localStorage.memos) {
+if (localStorage.memo) {
   // ローカルストレージのmemosキーからJSONを読み込む。
   const memosJson = localStorage.memo
   // JSON.parseで配列にして、memosを更新する。
@@ -20,8 +20,9 @@ if (localStorage.memos) {
 
   // ページ読み込み時に、配列の内容をブラウザに反映する。
   for (let i = 0; i < memo.length; i++) {
-    const div = document.createElement("div")
-    div.textContent = memo[i]
-    cardsContainer.append(div)
+    const card = document.createElement("div")
+    card.className = "card"
+    card.textContent = memo[i]
+    cardsContainer.append(card)
   }
 }
