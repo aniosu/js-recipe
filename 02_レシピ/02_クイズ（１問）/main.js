@@ -33,8 +33,12 @@ const reloadQuiz = function () {
   quizImage.src = "./images/" + quiz.image
   for (let i = 0; i < quiz.choices.length; i++) {
     choice[i] = document.createElement("button")
-    choice[i].textContent = quiz.choices[0].text
-    choice[i].append(quizButton)
+    choice[i].textContent = quiz.choices[i].text
+    choice[i].onclick = function () {
+      // 0 番目の選択肢を選択
+      choose(i)
+    }
+    quizButton.append(choice[i])
   }
 }
 
@@ -43,17 +47,6 @@ const choose = function (choiceNumber) {
   // フィードバックを表示
   feedback.textContent = quiz.choices[choiceNumber].feedback
 }
-choice[0].onclick = function () {
-  // 0 番目の選択肢を選択
-  choose(0)
-}
-choice[1].onclick = function () {
-  // 1 番目の選択肢を選択
-  choose(1)
-}
-choice[2].onclick = function () {
-  // 2 番目の選択肢を選択
-  choose(2)
-}
+
 // reloadQuiz関数 を実行して、クイズを画面に表示する
 reloadQuiz()
