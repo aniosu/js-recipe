@@ -1,9 +1,9 @@
 const catImage = document.getElementById("cat-image")
 
-fetch("www.thecocktaildb.com/api/json/v1/1/random.php")
+fetch("https://api.thecatapi.com/v1/images/search")
   .then((res) => {
     return res.json()
   })
   .then((data) => {
-    catImage.src = data.message
+    catImage.src = data[0].url
   })
